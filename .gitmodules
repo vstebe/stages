@@ -1,0 +1,3 @@
+[submodule "stages/packages/meteor-ares"]
+	path = stages/packages/meteor-ares
+	url = ssh://git@git.ares-ensiie.eu:2222/stebe2017/meteor-ares.git

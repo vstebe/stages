@@ -1,6 +1,9 @@
 Router.configure({
   layoutTemplate: 'mainLayout',
 });
-Router.route('app', {
+Router.route('companies', {
   path: '/'
+});
+Router.route('companyEdit', {
+  path: '/edit'
 });

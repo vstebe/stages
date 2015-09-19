@@ -1,0 +1,10 @@
+.login-template .login-form-text {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+}
+
+.login-template .profile-image-login {
+  width: 100px;
+  height: 100px !important;
+}

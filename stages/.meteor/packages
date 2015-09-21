@@ -16,3 +16,4 @@ cfs:standard-packages
 cfs:gridfs
 cfs:filesystem
 cfs:ejson-file
+dburles:google-maps

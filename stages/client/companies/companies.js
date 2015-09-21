@@ -10,3 +10,9 @@ Template.companies.helpers({
     return companies;
   }
 });
+
+Template.companies.events({
+  'click .company-title' : function(event) {
+    Router.go('company', {_id: $(event.currentTarget).data('id')});
+  }
+});

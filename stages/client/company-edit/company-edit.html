@@ -1,3 +1,98 @@
 <template name="companyEdit">
-  <input type="file" name="somename" size="chars" class="input">
+    <div class="row company-edit">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="grey-text text-darken-4 card-title">
+                      <a class="btn-floating waves-effect waves-light red before-button">
+                        <i class="material-icons">navigate_before</i></a>
+                        Edition d'une entreprise
+                    </span>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="col s9">
+                                    <!-- Nom de l'entreprise -->
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="name" type="text" class="{{validState 'name'}} name" value="{{name}}">
+                                            <label for="name" class="{{activeClass name}}">Nom de l'entreprise</label>
+                                        </div>
+                                    </div>
+                                    <!-- Description -->
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="description" class="{{validState 'description'}} materialize-textarea description" length="600">{{description}}</textarea>
+                                            <label for="description" class="{{activeClass description}}">Description courte</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s3">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            {{#if photoUploadProgress}}
+                                            <div class="preloader-wrapper big active">
+                                                <div class="spinner-layer spinner-blue-only">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{else}}
+                                            <p><img src="{{img}}" class="responsive-img border-img" /></p>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <div id="dropzone" class="alternate-option dropzone center">
+                                                <span>Glisser le logo ou </span>
+                                                <div class="btn">
+                                                    <span>Parcourir</span>
+
+                                                </div>
+                                                <input type="file" style="display:none" class="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Adresse -->
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="address" class="{{validState 'address'}} materialize-textarea address" length="120">{{address}}</textarea>
+                                    <label for="address" class="{{activeClass address}}">Adresse</label>
+                                </div>
+                            </div>
+                            <!-- Effectif -->
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <select class="size {{validState 'size'}}">
+                                  <option value="0" {{isSizeOptionSelected 0}}>{{companySizeLabel 0}}</option>
+                                  <option value="1" {{isSizeOptionSelected 1}}>{{companySizeLabel 1}}</option>
+                                  <option value="2" {{isSizeOptionSelected 2}}>{{companySizeLabel 2}}</option>
+                                  <option value="3" {{isSizeOptionSelected 3}}>{{companySizeLabel 3}}</option>
+                                  <option value="4" {{isSizeOptionSelected 4}}>{{companySizeLabel 4}}</option>
+                                </select>
+                                <label>Taille de l'entreprise</label>
+                              </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light submit" type="submit" name="action">
+                        {{#if updateForm}}Modifier{{else}}Ajouter{{/if}}
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

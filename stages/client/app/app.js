@@ -1,8 +1,16 @@
-Template.app.events({
-  'click .connect-button' : function() {
-    Meteor.loginWithAres();
+Meteor.startup(function() {
+  GoogleMaps.load();
+});
+
+Template.registerHelper("companySizeLabel", function (code) {
+    return CompanySize[code];
+});
+
+Template.mainLayout.events({
+  'click nav .link-companies' : function() {
+    Router.go('/');
   },
-  'click .disconnect-button' : function() {
+  'click nav .link-logout' : function() {
     Meteor.logout();
   }
 });

@@ -11,9 +11,13 @@ iron:router
 service-configuration
 accounts-ui
 stebe:meteor-ares
-d0minikk:materialize-meteor
 cfs:standard-packages
 cfs:gridfs
 cfs:filesystem
 cfs:ejson-file
 dburles:google-maps
+materialize:materialize@=0.97.0
+reactive-var
+aldeed:collection2
+raix:ui-dropped-event
+aldeed:geocoder

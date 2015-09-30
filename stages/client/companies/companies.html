@@ -2,7 +2,7 @@
   <div class="row">
   {{#each companies}}
   <div class="col s12 m6 l4">
-    <div class="card">
+    <div class="card company-card" data-id="{{_id}}">
      <div class="card-image waves-effect waves-block waves-light">
        <img class="activator" src="{{photo.url}}">
      </div>
@@ -27,13 +27,30 @@
           <div class="col s12">
             <div class="card">
               <div class="card-content">
-                <span class="card-title">{{name}}</span>
-                <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
+                <div class="row">
+                  <div class="col s8 m10">
+                    <span class="grey-text text-darken-4 card-title card-title">
+                      {{name}}
+                      <a class="btn-floating waves-effect waves-light red edit-company"><i class="material-icons">edit</i></a>
+                    </span>
+                    <p>{{description}}</p>
+                  </div>
+                  <div class="col s4 m2">
+                    <div class="row"><div class="col s12"><img style="width:100%" src="{{img}}" alt="Logo" /></div></div>
+                    <div class="row"><div class="col s12"><div class="rating"></div></div></div>
+                  </div>
+                </div>
+                <p class="valign-wrapper">
+                  <i class="material-icons">location_on</i>
+                  <span class="valign">{{address}}</span>
+                </p>
+                <p class="valign-wrapper">
+                  <i class="material-icons">supervisor_account</i>
+                  <span class="valign">{{companySizeLabel size}}</span>
+
+                </p>
+
+                <div class="map-container">{{> googleMap name="companyMap" options=companyMapOptions}}</div>
               </div>
             </div>
           </div>

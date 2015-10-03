@@ -1,5 +1,7 @@
 Collections = {
-  companies: new Mongo.Collection("companies")
+  companies: new Mongo.Collection("companies"),
+  tagAssociations: new Mongo.Collection('tagAssociations'),
+  experiences: new Mongo.Collection('experiences'),
 }
 Images = new FS.Collection("images", {
   stores: [new FS.Store.FileSystem("images")]
@@ -46,14 +48,93 @@ Schema.Companies = new SimpleSchema({
     }
 });
 
-Schema.tagAssociations = new SimpleSchema({
+Schema.TagAssociations = new SimpleSchema({
     tags: {
       type:[String],
       optional: false
     },
     score: {
       type:Number,
+      optional: false,
+      min:1
+    }
+});
 
+Schema.Experience = new SimpleSchema({
+    year: {
+      type: String,
+      allowedValues: ['1A', '2A', '3A', 'other'],
+      optional: false
+    },
+    yearPrecision: {
+      type:String,
+      optional:true
+    },
+    dateStart: {
+      type:Date,
+      optional:false
+    },
+    dateEnd: {
+      type:Date,
+      optional:false
+    },
+    title: {
+      type:String,
+      optional:false
+    },
+    description: {
+      type:String,
+      optional:false
+    },
+    tags: {
+      type:[String],
+      optional:true
+    },
+    dateStart: {
+      type:Date,
+      optional:false
+    },
+    ratings: {
+      type:Object,
+      optional:false
+    },
+    'ratings.work': {
+      type:Number,
+      optional:false,
+      min:0,
+      max:5
+    },
+    'ratings.interest': {
+      type:Number,
+      optional:false,
+      min:0,
+      max:5
+    },
+    'ratings.learning': {
+      type:Number,
+      optional:false,
+      min:0,
+      max:5
+    },
+    'ratings.difficulty': {
+      type:Number,
+      optional:false,
+      min:0,
+      max:5
+    },
+    'ratings.general': {
+      type:Number,
+      optional:false,
+      min:0,
+      max:5
+    },
+    comment: {
+      type:String,
+      optional:false
+    },
+    company: {
+      type: Schema.Company,
+      optional: false
     }
 });
 
@@ -102,3 +183,5 @@ Schema.User = new SimpleSchema({
 
 Meteor.users.attachSchema(Schema.User);
 Collections.companies.attachSchema(Schema.Companies);
+Collections.tagAssociations.attachSchema(Schema.TagAssociations);
+Collections.experiences.attachSchema(Schema.Experience);

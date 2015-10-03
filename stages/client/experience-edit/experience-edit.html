@@ -10,26 +10,35 @@
                       Nouvelle expérience à {{company.name}}</span>
                       <!-- Année -->
                       <div class="section">
-                        <h5>Il s'agissait d'un stage de...</h5>
-                        <p>
-                          <input name="type" type="radio" id="first_year" />
-                          <label for="first_year">Première année</label>
-                        </p>
-                        <p>
-                          <input name="type" type="radio" id="second_year" />
-                          <label for="second_year">Deuxième année</label>
-                        </p>
-                        <p>
-                          <input name="type" type="radio" id="third_year" />
-                          <label for="third_year">Troisième année</label>
-                        </p>
-                        <p>
-                          <input name="type" type="radio" id="other" />
-                          <label for="other">Autre</label>
-                        </p>
-                        <div class="input-field" style="display:none">
-                          <input id="precision" class="precision validate" type="text">
-                          <label for="precision">Précision</label>
+                        <div class="row">
+                          <div class="col s8">
+                            <h5>Il s'agissait d'un stage de...</h5>
+                            <p>
+                              <input name="year" type="radio" id="1A" />
+                              <label for="1A">Première année</label>
+                            </p>
+                            <p>
+                              <input name="year" type="radio" id="2A" />
+                              <label for="2A">Deuxième année</label>
+                            </p>
+                            <p>
+                              <input name="year" type="radio" id="3A" />
+                              <label for="3A">Troisième année</label>
+                            </p>
+                            <p>
+                              <input name="year" type="radio" id="other" />
+                              <label for="other">Autre</label>
+                            </p>
+                            <div class="input-field" style="display:none">
+                              <input id="year-precision" class="year-precision validate" type="text">
+                              <label for="year-precision">Précision</label>
+                            </div>
+                          </div>
+                          <div class="col s4 valign-wrapper">
+                            {{#unless isValid 'year'}}
+                              <p class="red-text text-darken-4 valign">Merci d'indiquer l'année</p>
+                            {{/unless}}
+                          </div>
                         </div>
                       </div>
                       <!-- Dates -->
@@ -39,14 +48,14 @@
                         <div class="row">
                           <div class="col s6">
                             <div class="input-field">
-                                <input id="date_start" class="date_start datepicker" type="date">
-                                <label for="date_start">Début du stage</label>
+                                <input id="date-start" class="date-start datepicker {{validState 'dateStart'}}" type="date">
+                                <label for="date-start">Début du stage</label>
                             </div>
                           </div>
                           <div class="col s6">
                             <div class="input-field">
-                                <input id="date_end" class="date_end datepicker" type="date">
-                                <label for="date_end">Fin du stage</label>
+                                <input id="date-end" class="date-end datepicker {{validState 'dateEnd'}}" type="date">
+                                <label for="date-end">Fin du stage</label>
                             </div>
                           </div>
                         </div>
@@ -56,12 +65,12 @@
                       <div class="section">
                         <h5>Infos principales</h5>
                         <div class="input-field">
-                            <input id="title" class="title validate" type="text">
+                            <input id="title" class="title validate {{validState 'title'}}" type="text">
                             <label for="title">Intitulé</label>
                         </div>
                         <!-- Description -->
                         <div class="input-field">
-                            <textarea id="description" class="description materialize-textarea" type="text"></textarea>
+                            <textarea id="description" class="description materialize-textarea {{validState 'description'}}" type="text"></textarea>
                             <label for="description">Description</label>
                         </div>
                       </div>
@@ -70,15 +79,30 @@
                       <h5>Technologies utilisées</h5>
                       <div class="section">
                         <div class="row">
-                          <div class="chip">
-                            Tag
-                            <i class="material-icons">close</i>
-                          </div>
-                          <div class="chip">
-                            Tag
-                            <i class="material-icons">close</i>
-                          </div>
+                            <div class="col s6">
+                              {{#each currentTags}}
+                                <div class="chip">
+                                  {{this}}
+                                  <i class="material-icons delete-tag" data-tag="{{this}}">close</i>
+                                </div>
+                              {{/each}}
+                            </div>
                         </div>
+                        <div class="row">
+                          <div class="input-field col s6">
+                              <input id="new-tag" class="new-tag validate" type="text">
+                              <label for="new-tag">Nouveau tag</label>
+                          </div>
+                            {{#if hasSuggestedTags}}
+                            <div class="input-field col s6">
+                            <p>Suggestions :
+                              {{#each suggestedTags}}
+                                <a class="suggested-tag btn">{{this}}</a>
+                              {{/each}}</p>
+                            </div>
+                            {{/if}}
+                        </div>
+
                       </div>
                       <!-- Notations -->
                       <div class="divider"></div>
@@ -87,15 +111,15 @@
                         <div class="row">
                             <div class="col s12 m6 l3">
                               <h6 class="center">Cadre de travail</h6>
-                                <div class="experience-rating center"></div>
+                                <div class="experience-rating center work-rating"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Intérêt du projet</h6>
-                                <div class="experience-rating center"></div>
+                                <div class="experience-rating center interest-rating"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Apprentissage</h6>
-                                <div class="experience-rating center"></div>
+                                <div class="experience-rating center learning-rating"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Difficulté</h6>
@@ -108,7 +132,7 @@
                       <div class="section">
                         <h5>Commentaire</h5>
                         <div class="input-field">
-                            <textarea id="comment" class="description materialize-textarea" type="text"></textarea>
+                            <textarea id="comment" class="comment materialize-textarea {{validState 'comment'}}" type="text"></textarea>
                             <label for="comment">Commentaire</label>
                         </div>
                       </div>
@@ -116,8 +140,12 @@
                       <div class="divider"></div>
                       <div class="section">
                         <h5>Appréciation générale</h5>
-                        <div class="experience-rating center"></div>
+                        <div class="experience-rating center general-rating"></div>
                       </div>
+
+                      <button class="btn waves-effect waves-light experience-send" type="button" name="action">Envoyer
+                        <i class="material-icons right">send</i>
+                      </button>
 
                 </form>
                 </div>

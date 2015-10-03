@@ -46,6 +46,17 @@ Schema.Companies = new SimpleSchema({
     }
 });
 
+Schema.tagAssociations = new SimpleSchema({
+    tags: {
+      type:[String],
+      optional: false
+    },
+    score: {
+      type:Number,
+
+    }
+});
+
 Schema.User = new SimpleSchema({
     username: {
         type: String,

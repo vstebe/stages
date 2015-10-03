@@ -40,7 +40,7 @@ Template.companyEdit.events({
     //Validation de l'objet
     Collections.companies.simpleSchema().clean(company);
     if(Collections.companies.simpleSchema().namedContext().validate(company)) {
-      if(template.data._id) { //En cas de mise à jour
+      if(template.data) { //En cas de mise à jour
         company._id = template.data._id;
         Meteor.call('updateCompany', company);
       } else { //En cas d'insertion

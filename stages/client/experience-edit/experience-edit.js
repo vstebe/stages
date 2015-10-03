@@ -22,9 +22,6 @@ Template.experienceEdit.rendered = function() {
   $('.experience-rating').raty({
       starType: 'i',
       size:4,
-      target: '.difficulty-rating-hint',
-      hints: ['très difficile', 'difficile', 'moyen', 'facile', 'très facile']
     });
 
-    $('.experience-rating').fitText(1.2);
 }

@@ -5,3 +5,9 @@ CompanySize = {
   3: 'Entre 10 et 50 salariés',
   4: 'Plus de 50 salariés'
 };
+
+YearLabels = {
+  '1A': "première année",
+  '2A': "deuxième année",
+  '3A': "troisième année"
+};

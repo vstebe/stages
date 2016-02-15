@@ -1,5 +1,7 @@
 Meteor.startup(function() {
   GoogleMaps.load();
+  Meteor.subscribe('publicUsers');
+  moment.locale("fr");
 });
 
 Template.registerHelper("companySizeLabel", function (code) {

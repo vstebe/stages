@@ -26,6 +26,24 @@ Meteor.methods({
     if(Meteor.isServer) {
       company = lookForLocation(company);
     }
-    Collections.companies.update({_id: company._id}, {'$set' : company});
+
+    var update = {'$set' : company};
+
+    //Si on a enlevé le champ site internet
+    if(!company.website) {
+      Collections.companies.update(company._id, {
+        '$set': company,
+        '$unset': {website: 1}
+      });
+    } else {
+      if (company.website.substring(0, 4) != "http") {
+          company.website = "http://" + company.website;
+      }
+      Collections.companies.update(company._id, {
+        '$set': company,
+      });
+    }
+
+
   }
 });

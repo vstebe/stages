@@ -14,24 +14,24 @@
                           <div class="col s8">
                             <h5>Il s'agissait d'un stage de...</h5>
                             <p>
-                              <input name="year" type="radio" id="1A" />
+                              <input name="year" type="radio" id="1A" {{yearCheckedAttribute '1A'}}/>
                               <label for="1A">Première année</label>
                             </p>
                             <p>
-                              <input name="year" type="radio" id="2A" />
+                              <input name="year" type="radio" id="2A" {{yearCheckedAttribute '2A'}}/>
                               <label for="2A">Deuxième année</label>
                             </p>
                             <p>
-                              <input name="year" type="radio" id="3A" />
+                              <input name="year" type="radio" id="3A" {{yearCheckedAttribute '3A'}}/>
                               <label for="3A">Troisième année</label>
                             </p>
                             <p>
-                              <input name="year" type="radio" id="other" />
+                              <input name="year" type="radio" id="other" {{yearCheckedAttribute 'other'}}/>
                               <label for="other">Autre</label>
                             </p>
                             <div class="input-field" style="display:none">
-                              <input id="year-precision" class="year-precision validate" type="text">
-                              <label for="year-precision">Précision</label>
+                              <input id="year-precision" class="year-precision validate" type="text" value="{{yearPrecision}}">
+                              <label for="year-precision" class="{{activeClass yearPrecision}}">Précision</label>
                             </div>
                           </div>
                           <div class="col s4 valign-wrapper">
@@ -48,13 +48,13 @@
                         <div class="row">
                           <div class="col s6">
                             <div class="input-field">
-                                <input id="date-start" class="date-start datepicker {{validState 'dateStart'}}" type="date">
+                                <input id="date-start" class="date-start datepicker {{validState 'dateStart'}}" type="date" value="{{dateStart}}">
                                 <label for="date-start">Début du stage</label>
                             </div>
                           </div>
                           <div class="col s6">
                             <div class="input-field">
-                                <input id="date-end" class="date-end datepicker {{validState 'dateEnd'}}" type="date">
+                                <input id="date-end" class="date-end datepicker {{validState 'dateEnd'}}" type="date" value="{{dateEnd}}">
                                 <label for="date-end">Fin du stage</label>
                             </div>
                           </div>
@@ -65,13 +65,13 @@
                       <div class="section">
                         <h5>Infos principales</h5>
                         <div class="input-field">
-                            <input id="title" class="title validate {{validState 'title'}}" type="text">
-                            <label for="title">Intitulé</label>
+                            <input id="title" class="title validate {{validState 'title'}}" type="text" value="{{title}}">
+                            <label for="title" class="{{activeClass title}}">Intitulé</label>
                         </div>
                         <!-- Description -->
                         <div class="input-field">
-                            <textarea id="description" class="description materialize-textarea {{validState 'description'}}" type="text"></textarea>
-                            <label for="description">Description</label>
+                            <textarea id="description" class="description materialize-textarea {{validState 'description'}}" type="text">{{description}}</textarea>
+                            <label for="description" class="{{activeClass description}}">Description</label>
                         </div>
                       </div>
                       <!-- Tags -->
@@ -111,37 +111,51 @@
                         <div class="row">
                             <div class="col s12 m6 l3">
                               <h6 class="center">Cadre de travail</h6>
-                                <div class="experience-rating center work-rating"></div>
+                                <div class="experience-rating center work-rating" data-score="{{ratings.work}}"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Intérêt du projet</h6>
-                                <div class="experience-rating center interest-rating"></div>
+                                <div class="experience-rating center interest-rating" data-score="{{ratings.interest}}"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Apprentissage</h6>
-                                <div class="experience-rating center learning-rating"></div>
+                                <div class="experience-rating center learning-rating" data-score="{{ratings.learning}}"></div>
                             </div>
                             <div class="col s12 m6 l3">
                               <h6 class="center">Difficulté</h6>
-                                <div class="experience-rating center difficulty-rating"></div>
+                                <div class="experience-rating center difficulty-rating" data-score="{{ratings.difficulty}}"></div>
                             </div>
                         </div>
+                        {{#unless areRatingsValid}}
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="red-text text-darken-4 center">Merci d'effectuer les notations</p>
+                            </div>
+                        </div>
+                        {{/unless}}
                       </div>
                       <!-- Commentaire -->
                       <div class="divider"></div>
                       <div class="section">
                         <h5>Commentaire</h5>
                         <div class="input-field">
-                            <textarea id="comment" class="comment materialize-textarea {{validState 'comment'}}" type="text"></textarea>
-                            <label for="comment">Commentaire</label>
+                            <textarea id="comment" class="comment materialize-textarea {{validState 'comment'}}" type="text">{{comment}}</textarea>
+                            <label for="comment" class="{{activeClass comment}}">Commentaire</label>
                         </div>
                       </div>
                       <!-- Recommandation -->
                       <div class="divider"></div>
                       <div class="section">
                         <h5>Appréciation générale</h5>
-                        <div class="experience-rating center general-rating"></div>
+                        <div class="experience-rating center general-rating" data-score="{{ratings.general}}"></div>
                       </div>
+                      {{#unless isValid 'ratings.general'}}
+                      <div class="row">
+                          <div class="col s12">
+                              <p class="red-text text-darken-4 center">Merci d'attribuer une appréciation générale</p>
+                          </div>
+                      </div>
+                      {{/unless}}
 
                       <button class="btn waves-effect waves-light experience-send" type="button" name="action">Envoyer
                         <i class="material-icons right">send</i>

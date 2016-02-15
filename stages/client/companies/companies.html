@@ -17,42 +17,73 @@
    </div>
  </div>
   {{/each}}
-
+</div>
+  <div class="row">
+    <div class="center">
+      <a class="waves-effect waves-light btn red create-company-button"><i class="material-icons right">edit</i>Nouvelle entreprise</a>
+    </div>
   </div>
 </template>
 
 <template name="company">
 
-        <div class="row">
+        <div class="company row">
           <div class="col s12">
             <div class="card">
               <div class="card-content">
                 <div class="row">
-                  <div class="col s8 m10">
+                  <div class="col s12">
+                    <div class="right">
+                      <a class="btn-floating waves-effect waves-light red edit-company"><i class="material-icons">edit</i></a>
+                    </div>
                     <span class="grey-text text-darken-4 card-title card-title">
                       {{name}}
-                      <a class="btn-floating waves-effect waves-light red edit-company"><i class="material-icons">edit</i></a>
                     </span>
-                    <p>{{description}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s8 m10">
+                    <p class="flow-text company-description">
+                      {{description}}
+                    </p>
                   </div>
                   <div class="col s4 m2">
                     <div class="row"><div class="col s12"><img style="width:100%" src="{{img}}" alt="Logo" /></div></div>
                     <div class="row"><div class="col s12"><div class="rating"></div></div></div>
                   </div>
                 </div>
-                <p class="valign-wrapper">
-                  <i class="material-icons">location_on</i>
-                  <span class="valign">{{address}}</span>
-                </p>
-                <p class="valign-wrapper">
-                  <i class="material-icons">supervisor_account</i>
-                  <span class="valign">{{companySizeLabel size}}</span>
-
-                </p>
+                <ul class="collection company-info">
+                  <li class="collection-item valign-wrapper">
+                    <i class="material-icons valign">location_on</i>
+                    <span class="valign">{{address}}</span>
+                  </li>
+                  <li class="collection-item valign-wrapper">
+                    <i class="material-icons valign">supervisor_account</i>
+                    <span class="valign">{{companySizeLabel size}}</span>
+                  </li>
+                  {{#if hasField 'website'}}
+                  <li class="collection-item valign-wrapper">
+                    <i class="material-icons valign">link</i>
+                    <span class="valign"><a href="{{website}}">{{website}}</a></span>
+                  </li>
+                  {{/if}}
+                </ul>
 
                 <div class="map-container">{{> googleMap name="companyMap" options=companyMapOptions}}</div>
+
+                <div class="add-experience">
+                  <h6>
+                    Vous avez une expérience dans cette entreprise ?
+                    <a class="waves-effect waves-light btn add-experience">Ajouter</a>
+                  </h6>
+                </div>
               </div>
             </div>
+
+
+            {{#each experiences}}
+              {{> experience this}}
+            {{/each}}
           </div>
         </div>
 </template>

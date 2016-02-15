@@ -14,11 +14,15 @@ Template.companies.helpers({
 Template.companies.events({
   'click .company-card' : function(event) {
     Router.go('company', {_id: $(event.currentTarget).data('id')});
+  },
+  'click .create-company-button' : function() {
+    Router.go('/company/edit')
   }
 });
 
 Template.companies.created = function() {
   window.document.title="Liste des entreprises";
+
 }
 
 Template.company.helpers({
@@ -44,11 +48,20 @@ Template.company.helpers({
       return obj.url();
     return '/img/question.png';
   },
+  experiences: function() {
+    return Collections.experiences.find({company: Template.instance().data._id});
+  },
+  hasField: function(field) {
+    return Template.instance().data[field] != undefined;
+  }
 });
 
 Template.company.events({
   'click .edit-company': function() {
     Router.go('/company/edit/' + Template.instance().data._id);
+  },
+  'click .add-experience': function() {
+    Router.go('/experience/add/' + Template.instance().data._id);
   }
 });
 
@@ -69,6 +82,17 @@ Template.company.created = function() {
       template.marker.setPosition(new google.maps.LatLng(company.location.latitude, company.location.longitude));
       console.log(theMap);
       theMap.panTo(new google.maps.LatLng(company.location.latitude, company.location.longitude));
+
+      //score
+      var experiences = Collections.experiences.find({company: template.data._id}).fetch();
+      if(experiences.length > 0) {
+        var sum = 0;
+        experiences.forEach(function(e) {
+          sum += e.ratings.general;
+        });
+        $('.rating').raty('set', {score: sum/experiences.length});
+      }
+
     });
   });
 
@@ -79,7 +103,7 @@ Template.company.rendered = function() {
   $('.rating').raty({
     starType: 'i',
     readOnly: true,
-    score: 2.5,
+    score: 0,
     size:4
   });
   $('.rating').fitText();

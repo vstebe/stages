@@ -26,6 +26,21 @@ Template.experienceEdit.helpers({
     var error = _.find(errors, function(i){return i.name == n});
     return error == undefined;
   },
+  areRatingsValid: function() {
+    var errors = Collections.experiences.simpleSchema().namedContext().invalidKeys();
+    var ratings = ['ratings.work', 'ratings.interest', 'ratings.learning', 'ratings.difficulty'];
+    for(var i=0; i<ratings.length; i++) {
+      if(_.find(errors, function(e){return e.name == ratings[i]}) != undefined)
+        return false;
+    }
+    return true;
+  },
+  'activeClass' : function(obj) {
+    return (obj == undefined) ? '' : 'active';
+  },
+  yearCheckedAttribute: function(year) {
+    return (Template.instance().data.year == year) ? "checked" : "";
+  }
 });
 
 Template.experienceEdit.events({
@@ -57,6 +72,7 @@ Template.experienceEdit.events({
   'click .experience-edit .experience-send' : function(e) {
     var experience = {
       year: $('.experience-edit [name="year"]:checked').attr('id'),
+      yearPrecision: $('.experience-edit .year-precision').val(),
       dateStart: $('.experience-edit .date-start').val(),
       dateEnd: $('.experience-edit .date-end').val(),
       title: $('.experience-edit .title').val(),
@@ -69,22 +85,25 @@ Template.experienceEdit.events({
         difficulty: $('.experience-edit .difficulty-rating').raty('score'),
         general: $('.experience-edit .general-rating').raty('score'),
       },
-      comment: $('.experience-edit .comment').val()
+      comment: $('.experience-edit .comment').val(),
+      company: Template.instance().data.company._id,
+      user: Meteor.userId()
     };
-    console.log(experience);
 
     //Validation de l'objet
     Collections.experiences.simpleSchema().clean(experience);
     if(Collections.experiences.simpleSchema().namedContext().validate(experience)) {
-      /*
-      if(template.data) { //En cas de mise à jour
-        company._id = template.data._id;
-        Meteor.call('updateCompany', company);
+
+      if(Template.instance().data._id) { //En cas de mise à jour
+        experience._id = Template.instance().data._id;
+        Meteor.call('updateExperience', experience);
+        Materialize.toast("Cette expérience a bien été mise à jour.", 4000);
       } else { //En cas d'insertion
-        company._id = Meteor.uuid();
-        Meteor.call('insertCompany', company);
+        experience._id = Meteor.uuid();
+        Meteor.call('insertExperience', experience);
+        Materialize.toast("L'expérience a bien été ajoutée.", 4000);
       }
-      Router.go('/company/' + company._id);*/
+      Router.go('/company/' + experience.company);
     } else {
       console.log(Collections.experiences.simpleSchema().namedContext().invalidKeys());
     }
@@ -92,14 +111,29 @@ Template.experienceEdit.events({
 });
 
 Template.experienceEdit.created = function() {
-  this.currentTags = new ReactiveVar(['NodeJS']);
+  this.currentTags = new ReactiveVar([]);
 }
 
 Template.experienceEdit.rendered = function() {
-  $('input[type="date"]').pickadate();
+  $('input[type="date"]').pickadate(pickadateOptions);
   $('.experience-rating').raty({
       starType: 'i',
       size:4,
+      score: function() {
+        return $(this).attr('data-score');
+      },
     });
+
+
+  Tracker.autorun(function() {
+    $('.experience-edit .date-start').pickadate('picker').set('select', Template.instance().data.dateStart);
+    $('.experience-edit .date-end').pickadate('picker').set('select', Template.instance().data.dateEnd);
+    if(Template.instance().data.year == 'other')
+      $('.experience-edit .year-precision').parent().fadeIn();
+    else
+      $('.experience-edit .year-precision').parent().fadeOut();
+
+      Template.instance().currentTags.set(Template.instance().data.tags);
+  });
 
 }

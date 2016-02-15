@@ -30,7 +30,8 @@ Template.companyEdit.events({
       name: $('.company-edit .name').val(),
       description: $('.company-edit .description').val(),
       address: $('.company-edit .address').val(),
-      size: $('.company-edit .size option:selected').val()
+      size: $('.company-edit .size option:selected').val(),
+      website: $('.company-edit .website').val()
     };
 
     //On prend la photo si elle a été uploadé

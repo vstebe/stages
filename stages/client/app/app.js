@@ -1,6 +1,11 @@
+Meteor.subscribe('publicUsers');
+Meteor.subscribe('companies');
+Meteor.subscribe('experiences');
+Meteor.subscribe('tagAssociations');
+
 Meteor.startup(function() {
   GoogleMaps.load();
-  Meteor.subscribe('publicUsers');
+
   moment.locale("fr");
 
   jQuery.extend( jQuery.fn.pickadate.defaults, {
@@ -20,9 +25,6 @@ Meteor.startup(function() {
       labelYearSelect:"Sélectionner une année"
   });
 
-  jQuery.extend( jQuery.fn.pickatime.defaults, {
-      clear: 'Effacer'
-  });
 });
 
 Template.registerHelper("companySizeLabel", function (code) {

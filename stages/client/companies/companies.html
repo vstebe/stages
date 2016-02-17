@@ -18,6 +18,13 @@
  </div>
   {{/each}}
 </div>
+{{#if noCompany}}
+<div class="row">
+  <div class="center">
+    <p>Aucune entreprise n'est actuellement enregistrée.</p>
+  </div>
+</div>
+{{/if}}
   <div class="row">
     <div class="center">
       <a class="waves-effect waves-light btn red create-company-button"><i class="material-icons right">edit</i>Nouvelle entreprise</a>

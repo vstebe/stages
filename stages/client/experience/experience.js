@@ -5,7 +5,7 @@ Template.experience.helpers({
   photoUrl: function() {
     var user = Meteor.users.findOne({_id: Template.instance().data.user});
     if(!user) return '';
-    return Gravatar.imageUrl(user.profile.email);
+    return Configuration.avatarUrlPrefix + user.services.ares.avatar_file_name;
   },
   basicInfo: function() {
     var exp = Template.instance().data;

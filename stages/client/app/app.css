@@ -36,8 +36,12 @@ body {
   width:100%;
 }
 
-.nav-wrapper li:hover {
+.nav-wrapper li:hover, .nav-wrapper a:hover {
   cursor:pointer;
+}
+
+.nav-wrapper {
+  padding-left:10px;
 }
 
 .before-button {
@@ -53,6 +57,11 @@ body {
 
 .experience .photo-container {
   margin-right: 5px;
+}
+
+.experience .photo-container img {
+  width:80px;
+  height:80px;
 }
 
 .company-description {

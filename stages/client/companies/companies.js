@@ -8,6 +8,9 @@ Template.companies.helpers({
           companies[i].photo = '#';
     }
     return companies;
+  },
+  'noCompany' : function() {
+    return Collections.companies.find().fetch().length == 0;
   }
 });
 

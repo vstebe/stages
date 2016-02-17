@@ -11,3 +11,7 @@ YearLabels = {
   '2A': "deuxième année",
   '3A': "troisième année"
 };
+
+Configuration = {
+  avatarUrlPrefix: "https://ares-intranet-profiles.s3.amazonaws.com/users/avatars/000/000/102/original/"
+};

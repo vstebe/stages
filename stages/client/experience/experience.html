@@ -1,0 +1,79 @@
+<template name="experience">
+  <div class="card experience">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12">
+          <div class="right">
+            <a class="btn-floating waves-effect waves-light red edit-button">
+              <i class="material-icons">edit</i></a>
+          </div>
+          <span class="grey-text text-darken-4 card-title card-title">
+            <div class="left photo-container">
+                <img src="{{photoUrl}}" alt="Photo" class="circle"/>
+            </div>
+            {{user.profile.name}} {{user.profile.surname}}
+          </span>
+          <p>{{title}}</p>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <ul class="collection experience-info">
+            <li class="collection-item valign-wrapper">
+              <i class="material-icons valign">school</i>
+              <span class="valign">{{basicInfo}}</span>
+            </li>
+            <li class="collection-item valign-wrapper">
+              <i class="material-icons valign">today</i>
+              <span class="valign">{{dateInfo}}</span>
+            </li>
+          </ul>
+          <div class="section center">
+            {{#each tags}}
+            <div class="chip">
+              {{this}}
+            </div>
+            {{/each}}
+          </div>
+          <div class="divider"></div>
+          <p class="section flow-text">
+            {{description}}
+          </p>
+          <div class="divider"></div>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col s12">
+         <div class="row">
+             <div class="col s12 m6 l3">
+               <h6 class="center">Cadre de travail</h6>
+                 <div class="experience-rating center" data-score="{{ratings.work}}"></div>
+             </div>
+             <div class="col s12 m6 l3">
+               <h6 class="center">Intérêt du projet</h6>
+                 <div class="experience-rating center" data-score="{{ratings.interest}}"></div>
+             </div>
+             <div class="col s12 m6 l3">
+               <h6 class="center">Apprentissage</h6>
+                 <div class="experience-rating center" data-score="{{ratings.learning}}"></div>
+             </div>
+             <div class="col s12 m6 l3">
+               <h6 class="center">Difficulté</h6>
+                 <div class="experience-rating center" data-score="{{ratings.difficulty}}"></div>
+             </div>
+           </div>
+       </div>
+       <div class="col s12 general-rating-container">
+         <h5 class="center">Appréciation générale</h5>
+           <div class="experience-rating center" data-score="{{ratings.general}}"></div>
+       </div>
+       <div class="col s12">
+         <blockquote>
+           {{comment}}
+         </blockquote>
+       </div>
+      </div>
+    </div>
+  </div>
+</template>

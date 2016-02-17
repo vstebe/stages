@@ -65,6 +65,7 @@ Template.experienceEdit.events({
   'keypress .experience-edit .new-tag': function(e) {
     if(e.charCode == 13) {
       var tag = $(e.currentTarget).val();
+      console.log(Template.instance().currentTags);
       Template.instance().currentTags.set(Template.instance().currentTags.get().concat(tag));
       $(e.currentTarget).val('');
     }
@@ -73,8 +74,8 @@ Template.experienceEdit.events({
     var experience = {
       year: $('.experience-edit [name="year"]:checked').attr('id'),
       yearPrecision: $('.experience-edit .year-precision').val(),
-      dateStart: $('.experience-edit .date-start').val(),
-      dateEnd: $('.experience-edit .date-end').val(),
+      dateStart: $('.experience-edit .date-start').pickadate('picker').get('select', 'yyyy/mm/dd'),
+      dateEnd: $('.experience-edit .date-end').pickadate('picker').get('select', 'yyyy/mm/dd'),
       title: $('.experience-edit .title').val(),
       description: $('.experience-edit .description').val(),
       tags: Template.instance().currentTags.get(),
@@ -111,11 +112,13 @@ Template.experienceEdit.events({
 });
 
 Template.experienceEdit.created = function() {
-  this.currentTags = new ReactiveVar([]);
+  Template.instance().currentTags = new ReactiveVar([]);
+  Template.instance().currentTags.set([]);
+  console.log(Template.instance().currentTags);
 }
 
 Template.experienceEdit.rendered = function() {
-  $('input[type="date"]').pickadate(pickadateOptions);
+  $('input[type="date"]').pickadate();
   $('.experience-rating').raty({
       starType: 'i',
       size:4,
@@ -133,7 +136,8 @@ Template.experienceEdit.rendered = function() {
     else
       $('.experience-edit .year-precision').parent().fadeOut();
 
-      Template.instance().currentTags.set(Template.instance().data.tags);
+      if(Template.instance().data.tags)
+        Template.instance().currentTags.set(Template.instance().data.tags);
   });
 
 }

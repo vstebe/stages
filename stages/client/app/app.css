@@ -36,6 +36,10 @@ body {
   width:100%;
 }
 
+.nav-wrapper li:hover {
+  cursor:pointer;
+}
+
 .before-button {
   margin-right:5px;
 }

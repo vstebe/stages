@@ -1,5 +1,15 @@
 <template name="companies">
   <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <div class="card-content ">
+          <span class="card-title black-text">Bienvenue !</span>
+          <p>Vous trouverez ici les entreprises qui ont accepté des stagiaires Ensiie, et les commentaires de ceux-ci. N'hésitez pas à contribuer en ajoutant l'entreprise qui vous a accueilli et en commentant votre expérience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
   {{#each companies}}
   <div class="col s12 m6 l4">
     <div class="card company-card" data-id="{{_id}}">
@@ -10,10 +20,6 @@
        <span class="card-title activator grey-text text-darken-4 company-title" data-id="{{_id}}">{{name}}</span>
        <p>{{small_description}}</p>
      </div>
-     <!--<div class="card-reveal">
-       <span class="card-title grey-text text-darken-4">{{name}}<i class="material-icons right">close</i></span>
-       <p>{{small_description}}</p>
-     </div>-->
    </div>
  </div>
   {{/each}}

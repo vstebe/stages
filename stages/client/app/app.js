@@ -2,6 +2,7 @@ Meteor.subscribe('publicUsers');
 Meteor.subscribe('companies');
 Meteor.subscribe('experiences');
 Meteor.subscribe('tagAssociations');
+Meteor.subscribe('images');
 
 Meteor.startup(function() {
   GoogleMaps.load();

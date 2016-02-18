@@ -25,3 +25,9 @@ Meteor.publish('tagAssociations', function() {
   return Collections.tagAssociations.find();
 
 });
+
+Meteor.publish('images', function() {
+  if(!this.userId) return undefined;
+  return Images.find();
+
+});

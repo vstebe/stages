@@ -1,11 +1,27 @@
 <template name="experience">
+  <div class="modal delete-experience-dialog">
+    <div class="modal-content">
+      <h4>Suppression de l'expérience en entreprise "{{title}}"</h4>
+      <p>Cette opération est irréversible.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat confirm-delete-experience">Continuer</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+    </div>
+  </div>
   <div class="card experience">
     <div class="card-content">
       <div class="row">
         <div class="col s12">
           <div class="right">
+            {{#if canEditExperience}}
             <a class="btn-floating waves-effect waves-light red edit-button">
               <i class="material-icons">edit</i></a>
+            {{/if}}
+            {{#if canDeleteExperience}}
+            <a class="btn-floating waves-effect waves-light red delete-button">
+              <i class="material-icons">delete</i></a>
+            {{/if}}
           </div>
           <span class="grey-text text-darken-4 card-title card-title">
             <div class="left photo-container">

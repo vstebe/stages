@@ -1,3 +1,9 @@
+canEditExperience = function(userId, experience) {
+  return experience.user == userId;
+}
+
+canDeleteExperience = canEditExperience;
+
 Meteor.methods({
   updateTagsNetwork: function(tags) {
     //Mise à jour réseau des tags
@@ -24,7 +30,7 @@ Meteor.methods({
 
     //Verification que l'auteur en est le propriétaire
     var experienceDb = Collections.experiences.findOne({_id: experience._id});
-    if(experienceDb.user != Meteor.userId())
+    if(!canEditExperience(Meteor.userId(), experienceDb))
       throw new Meteor.Error(403, 'You don\'t own this experience');
 
     //Suppression de la précision si elle sert à rien
@@ -38,5 +44,19 @@ Meteor.methods({
       '$set' : experience
     });
 
+  },
+
+  deleteExperience: function(experience) {
+    if(!Meteor.user())
+      throw new Meteor.Error(403, 'You must be authenticated.');
+
+    //Verification que l'auteur en est le propriétaire
+    var experienceDb = Collections.experiences.findOne({_id: experience._id});
+    if(!canDeleteExperience(Meteor.userId(), experienceDb))
+      throw new Meteor.Error(403, 'You don\'t own this experience');
+
+    Collections.experiences.remove({
+      _id: experience._id
+    });
   }
 });

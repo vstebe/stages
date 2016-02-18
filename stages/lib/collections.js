@@ -49,6 +49,10 @@ Schema.Companies = new SimpleSchema({
     website: {
       type: String,
       optional: true
+    },
+    creator: {
+      type: String,
+      optional: false
     }
 });
 

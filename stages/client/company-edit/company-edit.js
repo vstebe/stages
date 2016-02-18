@@ -31,7 +31,8 @@ Template.companyEdit.events({
       description: $('.company-edit .description').val(),
       address: $('.company-edit .address').val(),
       size: $('.company-edit .size option:selected').val(),
-      website: $('.company-edit .website').val()
+      website: $('.company-edit .website').val(),
+      creator: Meteor.userId() 
     };
 
     //On prend la photo si elle a été uploadé

@@ -56,6 +56,13 @@ Template.company.helpers({
   },
   hasField: function(field) {
     return Template.instance().data[field] != undefined;
+  },
+  canEditCompany: function() {
+    return canEditCompany(Meteor.userId(), Template.instance().data);
+  }
+  ,
+  canDeleteCompany: function() {
+    return canDeleteCompany(Meteor.userId(), Template.instance().data);
   }
 });
 
@@ -65,6 +72,15 @@ Template.company.events({
   },
   'click .add-experience': function() {
     Router.go('/experience/add/' + Template.instance().data._id);
+  },
+  'click .delete-company': function() {
+    $('.delete-company-dialog').openModal();
+  },
+  'click .confirm-delete-company': function() {
+    Meteor.call('deleteCompany', Template.instance().data, function() {
+      Router.go('/');
+    });
+
   }
 });
 
@@ -82,9 +98,11 @@ Template.company.created = function() {
 
     Tracker.autorun(function() {
       var company = Collections.companies.findOne({_id: template.data._id});
-      template.marker.setPosition(new google.maps.LatLng(company.location.latitude, company.location.longitude));
-      console.log(theMap);
-      theMap.panTo(new google.maps.LatLng(company.location.latitude, company.location.longitude));
+      if(company.location) {
+        template.marker.setPosition(new google.maps.LatLng(company.location.latitude, company.location.longitude));
+        console.log(theMap);
+        theMap.panTo(new google.maps.LatLng(company.location.latitude, company.location.longitude));
+      }
 
       //score
       var experiences = Collections.experiences.find({company: template.data._id}).fetch();
@@ -98,6 +116,7 @@ Template.company.created = function() {
 
     });
   });
+
 
   window.document.title = this.data.name;
 };

@@ -33,16 +33,28 @@
 </template>
 
 <template name="company">
-
+        <div class="modal delete-company-dialog">
+          <div class="modal-content">
+            <h4>Suppression de la fiche entreprise "{{name}}"</h4>
+            <p>Cette opération est irréversible.</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat confirm-delete-company">Continuer</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
+          </div>
+        </div>
         <div class="company row">
           <div class="col s12">
             <div class="card">
               <div class="card-content">
                 <div class="row">
                   <div class="col s12">
+
                     <div class="right">
-                      <a class="btn-floating waves-effect waves-light red edit-company"><i class="material-icons">edit</i></a>
+                      {{#if canEditCompany}}<a class="btn-floating waves-effect waves-light red edit-company"><i class="material-icons">edit</i></a>{{/if}}
+                      {{#if canDeleteCompany}}<a class="btn-floating waves-effect waves-light red delete-company"><i class="material-icons">delete</i></a>{{/if}}
                     </div>
+
                     <span class="grey-text text-darken-4 card-title card-title">
                       {{name}}
                     </span>

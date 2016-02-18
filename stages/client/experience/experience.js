@@ -21,12 +21,24 @@ Template.experience.helpers({
     var dateStart = Template.instance().data.dateStart;
     var dateEnd = Template.instance().data.dateEnd;
     return "Du " + moment(dateStart).format('LL') + " au " + moment(dateEnd).format('LL');
+  },
+  canEditExperience:function() {
+    return canEditExperience(Meteor.userId(), Template.instance().data);
+  },
+  canDeleteExperience: function() {
+    return canDeleteExperience(Meteor.userId(), Template.instance().data);
   }
 });
 
 Template.experience.events({
   'click .experience .edit-button' : function() {
     Router.go('/experience/edit/' + Template.instance().data._id);
+  },
+  'click .experience .delete-button' : function() {
+    $('.delete-experience-dialog').openModal();
+  },
+  'click .confirm-delete-experience' : function() {
+    Meteor.call('deleteExperience', Template.instance().data);
   }
 });
 

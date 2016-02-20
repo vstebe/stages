@@ -1,9 +1,15 @@
 Router.configure({
   layoutTemplate: 'mainLayout',
 });
+
 Router.route('companies', {
   path: '/'
 });
+
+Router.route('about', {
+  path: '/about'
+});
+
 Router.route('companyEdit', {
     path: '/company/edit/:_id?',
     data: function(){

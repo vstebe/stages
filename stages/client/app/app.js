@@ -36,12 +36,18 @@ Template.mainLayout.helpers({
   //Returns true if the current page is root / companies list
   isCompaniesListPage: function(){
     return Iron.Location.get().path == "/";
+  },
+  isAboutPage: function(){
+    return Iron.Location.get().path == "/about";
   }
 });
 
 Template.mainLayout.events({
   'click nav .link-companies' : function() {
     Router.go('/');
+  },
+  'click nav .link-about' : function() {
+    Router.go('/about');
   },
   'click nav .link-logout' : function() {
     Meteor.logout();

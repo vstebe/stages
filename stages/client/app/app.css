@@ -11,10 +11,6 @@ body {
   height:100%;
 }
 
-.map-container {
-  height:200px;
-}
-
 .border-img {
   border: 1px solid #777;
 }
@@ -25,7 +21,7 @@ body {
 }
 
 .map-container {
-  height:200px;
+  height:300px;
   margin-top:20px;
 }
 

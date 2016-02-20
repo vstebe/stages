@@ -9,6 +9,10 @@ Images = new FS.Collection("images", {
 
 Schema = {};
 
+SimpleSchema.messages({
+  "dateOrderIncorrect": "La date de début est après la date de fin."
+});
+
 Schema.Companies = new SimpleSchema({
     name: {
       type: String,
@@ -127,7 +131,12 @@ Schema.Experience = new SimpleSchema({
     },
     dateEnd: {
       type:Date,
-      optional:false
+      optional:false,
+      custom: function () {
+        if (this.value < this.field('dateStart').value) {
+          return "dateOrderIncorrect";
+        }
+      }
     },
     title: {
       type:String,

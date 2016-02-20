@@ -32,6 +32,13 @@ Template.registerHelper("companySizeLabel", function (code) {
     return CompanySize[code];
 });
 
+Template.mainLayout.helpers({
+  //Returns true if the current page is root / companies list
+  isCompaniesListPage: function(){
+    return Iron.Location.get().path == "/";
+  }
+});
+
 Template.mainLayout.events({
   'click nav .link-companies' : function() {
     Router.go('/');

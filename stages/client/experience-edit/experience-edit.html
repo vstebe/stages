@@ -44,6 +44,9 @@
                       <!-- Dates -->
                       <div class="divider"></div>
                       <div class="section">
+                        {{#unless isValid 'dateEnd'}}
+                          <p class="red-text text-darken-4 valign">Merci de vérifier les dates.</p>
+                        {{/unless}}
                         <h5>Dates</h5>
                         <div class="row">
                           <div class="col s6">

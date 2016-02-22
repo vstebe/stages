@@ -4,8 +4,8 @@ Template.experience.helpers({
   },
   photoUrl: function() {
     var user = Meteor.users.findOne({_id: Template.instance().data.user});
-    if(!user) return '';
-    return Configuration.avatarUrlPrefix + user.services.ares.avatar_file_name;
+    if(!user.services.ares.avatar_thumb || user.services.ares.avatar_thumb == '') return '/img/question.png';
+    return user.services.ares.avatar_thumb;
   },
   basicInfo: function() {
     var exp = Template.instance().data;

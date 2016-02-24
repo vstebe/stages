@@ -1,3 +1,4 @@
+**Attention : le projet est désormais hébergé sur Ares.**
 # Stages
 Application Meteor pour lister les stages réalisés à l'ENSIIE.
 L'utilisateur doit avoir un compte Ares et peut consulter les fiches présentes dans la base de données.
